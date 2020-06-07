@@ -39,6 +39,7 @@ import addExtensionIcon from './icon--extensions.svg';
 import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
+import LoginModal from "../login-modal/login-modal.jsx";
 
 const messages = defineMessages({
     addExtension: {
@@ -117,6 +118,8 @@ const GUIComponent = props => {
         telemetryModalVisible,
         tipsLibraryVisible,
         vm,
+        loginState,
+        showLoginModal,
         ...componentProps
     } = omit(props, 'dispatch');
     if (children) {
@@ -158,6 +161,7 @@ const GUIComponent = props => {
                 dir={isRtl ? 'rtl' : 'ltr'}
                 {...componentProps}
             >
+                {showLoginModal&&<LoginModal title={'登录'}/>}
                 {telemetryModalVisible ? (
                     <TelemetryModal
                         onCancel={onTelemetryModalCancel}
@@ -231,6 +235,8 @@ const GUIComponent = props => {
                     onSeeCommunity={onSeeCommunity}
                     onShare={onShare}
                     onToggleLoginOpen={onToggleLoginOpen}
+                    loginState={loginState}
+
                 />
                 <Box className={styles.bodyWrapper}>
                     <Box className={styles.flexWrapper}>
@@ -417,7 +423,8 @@ GUIComponent.propTypes = {
     targetIsStage: PropTypes.bool,
     telemetryModalVisible: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
-    vm: PropTypes.instanceOf(VM).isRequired
+    vm: PropTypes.instanceOf(VM).isRequired,
+    showLoginModal: PropTypes.bool,
 };
 GUIComponent.defaultProps = {
     backpackHost: null,

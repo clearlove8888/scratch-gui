@@ -30,7 +30,7 @@ import DeletionRestorer from '../../containers/deletion-restorer.jsx';
 import TurboMode from '../../containers/turbo-mode.jsx';
 import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 
-import {openTipsLibrary} from '../../reducers/modals';
+import {openLoginModal, openTipsLibrary} from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
 import {
     autoUpdateProject,
@@ -74,6 +74,7 @@ import aboutIcon from './icon--about.svg';
 import scratchLogo from './scratch-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
+import LoginButton from "./login-button.jsx";
 
 const ariaMessages = defineMessages({
     language: {
@@ -659,7 +660,7 @@ class MenuBar extends React.Component {
                         )
                     ) : (
                         // ******** no login session is available, so don't show login stuff
-                        <React.Fragment>
+                        this.props.loginState ? <React.Fragment>
                             {this.props.showComingSoon ? (
                                 <React.Fragment>
                                     <MenuBarItemTooltip id="mystuff">
@@ -702,7 +703,8 @@ class MenuBar extends React.Component {
                                     </MenuBarItemTooltip>
                                 </React.Fragment>
                             ) : []}
-                        </React.Fragment>
+                        </React.Fragment>:
+                            <LoginButton onClick={this.props.onclick}/>
                     )}
                 </div>
 
@@ -817,7 +819,8 @@ const mapDispatchToProps = dispatch => ({
     onClickRemix: () => dispatch(remixProject()),
     onClickSave: () => dispatch(manualUpdateProject()),
     onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
-    onSeeCommunity: () => dispatch(setPlayer(true))
+    onSeeCommunity: () => dispatch(setPlayer(true)),
+    onclick: ()=>dispatch(openLoginModal())
 });
 
 export default compose(
