@@ -1,0 +1,7 @@
+@import "../../css/colors.css";
+
+.login-button {
+    background: $data-primary;
+    height: 32px;
+    margin-right: 10px;
+}
