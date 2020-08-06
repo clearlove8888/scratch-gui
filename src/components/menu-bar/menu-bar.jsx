@@ -545,9 +545,9 @@ class MenuBar extends React.Component {
                         ) : (
                             this.props.showComingSoon ? (
                                 <MenuBarItemTooltip id="share-button">
-                                    <ShareButton className={styles.menuBarButton} />
+                                    <ShareButton className={styles.menuBarButton}/>
                                 </MenuBarItemTooltip>
-                            ) : []
+                            ) : <ShareButton className={styles.menuBarButton}/>
                         )}
                         {this.props.canRemix ? remixButton : []}
                     </div>
@@ -571,9 +571,9 @@ class MenuBar extends React.Component {
                             )
                         ) : (this.props.showComingSoon ? (
                             <MenuBarItemTooltip id="community-button">
-                                <CommunityButton className={styles.menuBarButton} />
+                                <CommunityButton className={styles.menuBarButton}/>
                             </MenuBarItemTooltip>
-                        ) : [])}
+                        ) : <CommunityButton className={styles.menuBarButton}/>)}
                     </div>
                 </div>
 
@@ -695,16 +695,19 @@ class MenuBar extends React.Component {
                                             <span>
                                                 {'scratch-cat'}
                                             </span>
-                                            <img
-                                                className={styles.dropdownCaretIcon}
-                                                src={dropdownCaret}
-                                            />
-                                        </div>
-                                    </MenuBarItemTooltip>
-                                </React.Fragment>
-                            ) : []}
-                        </React.Fragment>:
-                            <LoginButton onClick={this.props.onclick}/>
+                                                <img
+                                                    className={styles.dropdownCaretIcon}
+                                                    src={dropdownCaret}
+                                                />
+                                            </div>
+                                        </MenuBarItemTooltip>
+                                    </React.Fragment>
+                                ) : []}
+                            </React.Fragment> :
+                            <React.Fragment>
+                                <Button children={'保存作品'} className={styles.saveBtn}/>
+                                <LoginButton onClick={this.props.onclick}/>
+                            </React.Fragment>
                     )}
                 </div>
 
