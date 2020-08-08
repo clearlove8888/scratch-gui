@@ -195,7 +195,8 @@ StageHeaderComponent.propTypes = {
 };
 
 StageHeaderComponent.defaultProps = {
-    stageSizeMode: STAGE_SIZE_MODES.large
+    stageSizeMode: STAGE_SIZE_MODES.large,
+    showBranding: false
 };
 
 export default injectIntl(connect(

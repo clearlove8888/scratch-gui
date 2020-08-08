@@ -169,5 +169,6 @@ export {
     initFullScreen,
     initPlayer,
     initTelemetryModal,
-    initTutorialCard
+    initTutorialCard,
+    userStateInitialState
 };

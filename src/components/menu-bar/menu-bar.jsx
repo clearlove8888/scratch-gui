@@ -58,7 +58,7 @@ import {
     closeLoginMenu,
     loginMenuOpen
 } from '../../reducers/menus';
-
+import {login} from '../../reducers/user-state';
 import collectMetadata from '../../lib/collect-metadata';
 
 import styles from './menu-bar.css';
@@ -75,6 +75,7 @@ import scratchLogo from './scratch-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
 import LoginButton from "./login-button.jsx";
+import {base64ToBlob} from "../../lib/fileUtils";
 
 const ariaMessages = defineMessages({
     language: {
@@ -170,7 +171,8 @@ class MenuBar extends React.Component {
             'handleLanguageMouseUp',
             'handleRestoreOption',
             'getSaveToComputerHandler',
-            'restoreOptionMessage'
+            'restoreOptionMessage',
+            'saveProject'
         ]);
     }
     componentDidMount () {
@@ -283,6 +285,31 @@ class MenuBar extends React.Component {
             />);
         }
         }
+    }
+    saveProject(){
+        this.props.vm.saveProjectSb3().then(content => {
+            const formData= new FormData();
+            formData.append("target",content);
+            //构建出项目的封面图片
+            this.props.vm.renderer.draw();
+            const img = new Image();
+            img.src = this.props.vm.renderer.canvas.toDataURL('image/png', 0.7);
+            formData.append("image",base64ToBlob(img.src));
+            //设置一个默认的projectId
+            formData.append("projectId",this.props.projectId);
+            formData.append("user",JSON.stringify(this.props.userState.userData));
+            formData.append("projectName",this.props.projectTitle);
+            fetch(PORTAL_SERVER + 'project/upload', {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    ContentType: "multipart/form-data; charset=UTF-8"
+                },
+                body: formData
+            }).then(response => response.json()).then(json=>{
+                console.log(json);
+            })
+        });
     }
     render () {
         const saveNowMessage = (
@@ -704,10 +731,18 @@ class MenuBar extends React.Component {
                                     </React.Fragment>
                                 ) : []}
                             </React.Fragment> :
-                            <React.Fragment>
-                                <Button children={'保存作品'} className={styles.saveBtn}/>
-                                <LoginButton onClick={this.props.onclick}/>
-                            </React.Fragment>
+                                this.props.userState.loginState?
+                                    (
+                                        <React.Fragment>
+                                            <Button children={'保存作品'} className={styles.saveBtn} onClick={this.saveProject}/>
+                                            <span style={{'width':'150px'}}>{'欢迎您，'+this.props.userState.userData.loginName+'小朋友'}</span>
+                                        </React.Fragment>
+                                    ):
+                                    (
+                                        <React.Fragment>
+                                            <LoginButton onClick={this.props.onclick} login={this.props.login}/>
+                                        </React.Fragment>
+                                    )
                     )}
                 </div>
 
@@ -801,7 +836,9 @@ const mapStateToProps = (state, ownProps) => {
         username: user ? user.username : null,
         userOwnsProject: ownProps.authorUsername && user &&
             (ownProps.authorUsername === user.username),
-        vm: state.scratchGui.vm
+        vm: state.scratchGui.vm,
+        userState: state.scratchGui.userState,
+        projectId: state.scratchGui.projectState.projectId
     };
 };
 
@@ -823,7 +860,8 @@ const mapDispatchToProps = dispatch => ({
     onClickSave: () => dispatch(manualUpdateProject()),
     onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
     onSeeCommunity: () => dispatch(setPlayer(true)),
-    onclick: ()=>dispatch(openLoginModal())
+    onclick: ()=>dispatch(openLoginModal()),
+    login: (data)=>dispatch(login(data)),
 });
 
 export default compose(
