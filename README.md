@@ -46,3 +46,5 @@ const img = new Image();
 img.src = this.props.vm.renderer.canvas.toDataURL('image/png', 0.7);
 const blob = this.dataURLtoBlob(img.src);
 ```
+#主js文件打包的时候排除，从oss中引入
+

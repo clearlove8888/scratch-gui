@@ -68,7 +68,7 @@ const ProjectFetcherHOC = function (WrappedComponent) {
             }
         }
         fetchProject (projectId, loadingState) {
-            storage.setProjectHost(OSS_SERVER+this.props.userId+"/project")
+            storage.setProjectHost(OSS_SERVER+'project/'+this.props.userId+"/project")
             return storage
                 .load(storage.AssetType.Project, projectId, storage.DataFormat.JSON)
                 .then(projectAsset => {
@@ -102,6 +102,7 @@ const ProjectFetcherHOC = function (WrappedComponent) {
                 setProjectId: setProjectIdProp,
                 /* eslint-enable no-unused-vars */
                 isFetchingWithId: isFetchingWithIdProp,
+                userId,
                 ...componentProps
             } = this.props;
             return (

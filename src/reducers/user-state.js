@@ -10,7 +10,7 @@ const getInitialState = ()=>{
     }else {
         return {
             error: null,
-            userData: null,
+            userData: {},
             loginState: false
         }
     }

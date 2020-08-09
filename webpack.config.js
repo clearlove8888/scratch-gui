@@ -107,7 +107,8 @@ module.exports = [
             'gui': './src/playground/index.jsx',
             'blocksonly': './src/playground/blocks-only.jsx',
             'compatibilitytesting': './src/playground/compatibility-testing.jsx',
-            'player': './src/playground/player.jsx'
+            'player': './src/playground/player.jsx',
+            'project': './src/playground/project.jsx'
         },
         output: {
             path: path.resolve(__dirname, 'build'),
@@ -141,7 +142,10 @@ module.exports = [
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
                 'process.env.DEBUG': Boolean(process.env.DEBUG),
-                'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"'
+                'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"',
+                // portal项目的地址
+                PORTAL_SERVER: JSON.stringify("http://localhost:8081/"),
+                OSS_SERVER: JSON.stringify("https://scratch-file.oss-cn-shenzhen.aliyuncs.com/")
             }),
             new HtmlWebpackPlugin({
                 chunks: ['lib.min', 'gui'],
@@ -167,6 +171,12 @@ module.exports = [
                 filename: 'player.html',
                 title: 'Scratch 3.0 GUI: Player Example'
             }),
+            new HtmlWebpackPlugin({
+                chunks: ['lib.min', 'project'],
+                template: 'src/playground/index.ejs',
+                filename: 'project.html',
+                title: 'Scratch 3.0 GUI: Player Example'
+            }),
             new CopyWebpackPlugin([{
                 from: 'static',
                 to: 'static'
@@ -183,7 +193,12 @@ module.exports = [
             new CopyWebpackPlugin([{
                 from: 'extension-worker.{js,js.map}',
                 context: 'node_modules/scratch-vm/dist/web'
-            }])
+            }]),
+            new webpack.ProvidePlugin({
+                $:"jquery",
+                jQuery:"jquery",
+                "window.jQuery":"jquery"
+            })
         ])
     })
 ].concat(

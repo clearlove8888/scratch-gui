@@ -570,11 +570,11 @@ class MenuBar extends React.Component {
                                 </ProjectWatcher>
                             )
                         ) : (
-                            this.props.showComingSoon ? (
+                            this.props.showComingSoon && (
                                 <MenuBarItemTooltip id="share-button">
                                     <ShareButton className={styles.menuBarButton}/>
                                 </MenuBarItemTooltip>
-                            ) : <ShareButton className={styles.menuBarButton}/>
+                            )
                         )}
                         {this.props.canRemix ? remixButton : []}
                     </div>
@@ -600,7 +600,11 @@ class MenuBar extends React.Component {
                             <MenuBarItemTooltip id="community-button">
                                 <CommunityButton className={styles.menuBarButton}/>
                             </MenuBarItemTooltip>
-                        ) : <CommunityButton className={styles.menuBarButton}/>)}
+                        ) : <CommunityButton className={styles.menuBarButton} onClick={()=>{
+                            if (this.props.userState.loginState){
+                                window.location.href="project.html";
+                            }
+                        }}/>)}
                     </div>
                 </div>
 
