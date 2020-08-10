@@ -144,7 +144,7 @@ module.exports = [
                 'process.env.DEBUG': Boolean(process.env.DEBUG),
                 'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"',
                 // portal项目的地址
-                PORTAL_SERVER: JSON.stringify("http://localhost:8081/"),
+                PORTAL_SERVER: JSON.stringify("http://localhost:8081"),
                 OSS_SERVER: JSON.stringify("https://scratch-file.oss-cn-shenzhen.aliyuncs.com/")
             }),
             new HtmlWebpackPlugin({

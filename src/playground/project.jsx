@@ -33,7 +33,7 @@ class Project extends React.Component {
     }
 
     getProjectList() {
-        fetch(PORTAL_SERVER + 'project/list/' + this.props.userData.id, {
+        fetch(PORTAL_SERVER + '/education/project/list/' + this.props.userData.id, {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, cors, *same-origin
         })

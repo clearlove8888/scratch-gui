@@ -5,3 +5,14 @@
     height: 32px;
     margin-right: 10px;
 }
+.save-button {
+    background: $pen-primary;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.share-button {
+    background: $sound-tertiary;
+    height: 32px;
+    margin-right: 10px;
+}

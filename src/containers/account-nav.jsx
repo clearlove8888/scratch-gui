@@ -8,6 +8,7 @@ import {injectIntl} from 'react-intl';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
+import scratchLogo from '../components/menu-bar/scratch-logo.svg';
 
 import AccountNavComponent from '../components/menu-bar/account-nav.jsx';
 
@@ -39,8 +40,8 @@ const mapStateToProps = state => ({
     isStudent: state.session && state.session.permissions && state.session.permissions.student,
     profileUrl: state.session && state.session.session && state.session.session.user ?
         `/users/${state.session.session.user.username}` : '',
-    thumbnailUrl: state.session && state.session.session && state.session.session.user ?
-        state.session.session.user.thumbnailUrl : null,
+    //暂时用默认图片写死
+    thumbnailUrl: scratchLogo,
     username: state.session && state.session.session && state.session.session.user ?
         state.session.session.user.username : ''
 });

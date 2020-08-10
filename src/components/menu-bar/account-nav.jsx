@@ -112,6 +112,11 @@ const AccountNavComponent = ({
                     />
                 </MenuItemContainer>
             </MenuSection>
+            <MenuSection>
+                <MenuItemContainer onClick={onLogOut}>
+                    <span>原来是你丫</span>
+                </MenuItemContainer>
+            </MenuSection>
         </MenuBarMenu>
     </React.Fragment>
 );

@@ -30,6 +30,7 @@ import DeletionRestorer from '../../containers/deletion-restorer.jsx';
 import TurboMode from '../../containers/turbo-mode.jsx';
 import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 
+import buttonCss from'./login-button.css';
 import {openLoginModal, openTipsLibrary} from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
 import {
@@ -299,7 +300,7 @@ class MenuBar extends React.Component {
             formData.append("projectId",this.props.projectId);
             formData.append("user",JSON.stringify(this.props.userState.userData));
             formData.append("projectName",this.props.projectTitle);
-            fetch(PORTAL_SERVER + 'project/upload', {
+            fetch(PORTAL_SERVER + '/education/project/upload', {
                 method: "POST",
                 mode: 'cors',
                 headers: {
@@ -600,12 +601,11 @@ class MenuBar extends React.Component {
                             <MenuBarItemTooltip id="community-button">
                                 <CommunityButton className={styles.menuBarButton}/>
                             </MenuBarItemTooltip>
-                        ) : <CommunityButton className={styles.menuBarButton} onClick={()=>{
-                            if (this.props.userState.loginState){
-                                window.location.href="project.html";
-                            }
-                        }}/>)}
+                        ) : [])}
                     </div>
+                    {/*left menu*/}
+                    <Button className={buttonCss.saveButton} children={'保存'} />
+                    <Button className={buttonCss.shareButton} children={'分享到社区'}/>
                 </div>
 
                 {/* show the proper UI in the account menu, given whether the user is
@@ -616,11 +616,11 @@ class MenuBar extends React.Component {
                             <SaveStatus />
                         )}
                     </div>
-                    {this.props.sessionExists ? (
+                    {this.props.userState.loginState ? (
                         this.props.username ? (
                             // ************ user is logged in ************
                             <React.Fragment>
-                                <a href="/mystuff/">
+                                <a href="/mystuff/" style={{textDecoration:"none"}}>
                                     <div
                                         className={classNames(
                                             styles.menuBarItem,
@@ -632,6 +632,7 @@ class MenuBar extends React.Component {
                                             className={styles.mystuffIcon}
                                             src={mystuffIcon}
                                         />
+                                        <span>我的仓库</span>
                                     </div>
                                 </a>
                                 <AccountNav
@@ -824,7 +825,7 @@ MenuBar.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => {
     const loadingState = state.scratchGui.projectState.loadingState;
-    const user = state.session && state.session.session && state.session.session.user;
+    const user = state.scratchGui.userState.userData;
     return {
         accountMenuOpen: accountMenuOpen(state),
         fileMenuOpen: fileMenuOpen(state),
@@ -837,7 +838,7 @@ const mapStateToProps = (state, ownProps) => {
         loginMenuOpen: loginMenuOpen(state),
         projectTitle: state.scratchGui.projectTitle,
         sessionExists: state.session && typeof state.session.session !== 'undefined',
-        username: user ? user.username : null,
+        username: user ? user.loginName : null,
         userOwnsProject: ownProps.authorUsername && user &&
             (ownProps.authorUsername === user.username),
         vm: state.scratchGui.vm,

@@ -13,7 +13,7 @@ const userLogin = (loginName, password, onCancel, userSateLogin) => {
     const formdata = new FormData();
     formdata.append("loginName", loginName.value);
     formdata.append("password", password.value)
-    fetch(PORTAL_SERVER+"login", {
+    fetch(PORTAL_SERVER+"/education/user/login", {
         method: "POST",
         mode: 'cors',
         headers: {
@@ -24,7 +24,7 @@ const userLogin = (loginName, password, onCancel, userSateLogin) => {
         const token = new FormData();
         token.append("token", json.data);
         //解析用户数据
-        fetch(PORTAL_SERVER+"analysis", {
+        fetch(PORTAL_SERVER+"/education/user/analysis", {
             method: "POST",
             mode: 'cors',
             headers: {
