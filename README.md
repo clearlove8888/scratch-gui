@@ -48,3 +48,4 @@ const blob = this.dataURLtoBlob(img.src);
 ```
 #主js文件打包的时候排除，从oss中引入
 
+#设置 NODE_ENV === 'production' 阿里云gizp压缩问题

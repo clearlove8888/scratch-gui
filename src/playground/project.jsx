@@ -1,12 +1,9 @@
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 
-import Box from '../components/box/box.jsx';
-import GUI from '../containers/gui.jsx';
 import HashParserHOC from '../lib/hash-parser-hoc.jsx';
 import AppStateHOC from '../lib/app-state-hoc.jsx';
 
@@ -49,9 +46,11 @@ class Project extends React.Component {
         return (
             <div>
                 {
-                    this.state.projectList.map((item)=>{
-                        const src= OSS_SERVER+item.imageAddress;
-                        return <img src={src} onClick={()=>{window.location.href="player.html#"+item.projectId}} key={item.projectId}/>
+                    this.state.projectList && this.state.projectList.map((item) => {
+                        const src = OSS_SERVER + item.imageAddress;
+                        return <img src={src} onClick={() => {
+                            window.location.href = "player.html#" + item.projectId
+                        }} key={item.projectId}/>
                     })
                 }
             </div>
