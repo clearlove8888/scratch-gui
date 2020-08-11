@@ -108,7 +108,8 @@ module.exports = [
             'blocksonly': './src/playground/blocks-only.jsx',
             'compatibilitytesting': './src/playground/compatibility-testing.jsx',
             'player': './src/playground/player.jsx',
-            'project': './src/playground/project.jsx'
+            'project': './src/playground/project.jsx',
+            'detail':'./src/playground/detail.jsx',
         },
         output: {
             path: path.resolve(__dirname, 'build'),
@@ -176,6 +177,12 @@ module.exports = [
                 template: 'src/playground/index.ejs',
                 filename: 'project.html',
                 title: 'Scratch 3.0 GUI: Player Example'
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ['lib.min', 'detail'],
+                template: 'src/playground/detail.html',
+                filename: 'detail.html',
+                title: 'projectDetail'
             }),
             new CopyWebpackPlugin([{
                 from: 'static',
