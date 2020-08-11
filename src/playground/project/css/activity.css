@@ -1,0 +1,455 @@
+.activityMain{
+    width: 100%;
+    background-color: #EFF3F5;
+}
+.mainTop{
+    width: 100%;
+    height: 116px;
+    background-color: #FFBF00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.searchCon{
+    width:399px;
+    height:43px;
+    background:rgba(255,255,255,1);
+    border-radius:21px;
+    border: none;
+    padding-left: 20px;
+}
+.searchCon::placeholder {
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:#CACCCE;
+    line-height:36px;
+}
+.searchCon:focus{
+    border-radius: 50px;
+    outline: none;
+    border: 1px solid #ffffff;
+}
+.searchBtn{
+    float: right;
+    width:70px;
+    height:43px;
+    background-color: #E9EBEE;
+    border-radius: 0 100px 100px 0;
+    position: relative;
+    left: -70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mainBot{
+    width: 1200px;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+}
+.activityWork{
+    width: 100%;
+    height: 561px;
+    position: relative;
+    overflow: hidden;
+}
+.activityWorkL{
+    width: 582px;
+    height: 514px;
+    position: absolute;
+    top: 47px;
+    left: 60px;
+    float: left;
+}
+.activityWorkR{
+    width: 413px;
+    height: 386px;
+    float: left;
+    margin-top: 156px;
+    margin-left: 706px;
+    overflow: hidden;
+}
+.acttitle{
+    font-size:26px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    color:rgba(29,34,43,1);
+    line-height:36px;
+}
+.actIcon{
+    width: 100%;
+    margin-top: 5px;
+}
+.iconF{
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(145,154,169,1);
+    line-height:45px;
+}
+.zan{
+    margin-left: 33px;
+}
+.shouc{
+    margin-left: 23px;
+}
+.time{
+    margin-left: 22px;
+}
+
+.iconF span{
+    display: inline-block;
+    margin-left: 9px;
+}
+.actImg{
+    width:582px;
+    height:418px;
+    margin-top: 10px;
+}
+.actImg img{
+    width: 100%;
+    height: 100%;
+}
+.userInfo{
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid #EEEEEE;
+    float: left;
+}
+.userCon{
+    width: 100%;
+}
+.userDel{
+    float: left;
+    margin-left: 19px;
+}
+.username{
+    font-size:16px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    color:rgba(29,34,43,1);
+    line-height:36px;
+}
+.zhiwei{
+    width:79px;
+    height:21px;
+    background:#EDF4FF;
+    border-radius:10px;
+    font-size:12px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:#6FA4FF;
+    text-align: center;
+    line-height: 21px;
+    margin-left: -7px;
+}
+.focusBtn{
+    float: right;
+    width:88px;
+    height:31px;
+    background:rgba(78,144,255,1);
+    border-radius:15px;
+    text-align: center;
+    line-height: 31px;
+    margin-top: 10px;
+}
+.plusIcon{
+    font-size:22px;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    line-height:30px;
+}
+.focusT{
+    font-size:16px;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    line-height:30px;
+}
+.userIntroduce{
+    width: 100%;
+}
+.zpTitle{
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    color:rgba(29,34,43,1);
+    line-height:36px;
+}
+.textContent{
+    display: inline-block;
+    width: 413px;
+    height: 122px;
+    margin-left: 28px;
+    font-size:12px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(122,126,133,1);
+    line-height:22px;
+    margin-top: 0;
+    text-indent: 2em
+}
+.subWork{
+    width: 1014px;
+    margin-top: 135px;
+    margin-left: 61px;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+.subWorkCon{
+    width: 729px;
+    float: left;
+}
+.subText{
+    width:678px;
+    height: 120px;
+}
+.inputBox{
+    width: 618px;
+    height: 80px;
+    border: none;
+    border: 1px solid #EEEEEE;
+    margin-left: 4px;
+    border-radius:4px;
+    overflow: hidden;
+}
+.inputBox::placeholder{
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(122,126,133,1);
+    display: inline-block;
+    position: relative;
+    top: 13px;
+    left: 10px;
+}
+.subBtn{
+    float: right;
+    width:83px;
+    height:32px;
+    background:rgba(255,191,0,1);
+    border-radius:16px;
+    text-align: center;
+    line-height: 32px;
+}
+.plListCon{
+    width: 100%;
+    margin-top: 44px;
+    text-align: center;
+}
+.qbpl{
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(122,126,133,1);
+}
+.plList{
+    width: 100%;
+    margin-top: 71px;
+    text-align: left;
+}
+.plList li{
+    width: 100%;
+    height: 118px;
+    margin-top: 41px;
+}
+.plList li:nth-child(1){
+    margin-top: 0;
+}
+.plListUser{
+    width: 668px;
+    height: 100%;
+    border-bottom: 1px solid #EEEEEE;
+    float: left;
+    margin-left: 15px;
+}
+.userName{
+    font-size:16px;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(29,34,43,1);
+}
+.userTime{
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(145,154,169,1);
+    margin-left: 32px;
+}
+.plContent{
+    font-size:20px;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(29,34,43,1);
+    margin-top: 21px;
+}
+.zsCount{
+    margin-top: 17px;
+}
+.pliconF{
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(145,154,169,1);
+}
+.huifu{
+    margin-left: 28px;
+}
+.PLinputBox{
+    width: 660px;
+    height: 80px;
+    border: none;
+    background-color: #eeeeee;
+    margin-left: 65px;
+    border-radius: 4px;
+}
+.PLinputBox::placeholder{
+    padding-left: 14px;
+    padding-top: 19px;
+}
+.PLsubBtn{
+    float: right;
+    width:112px;
+    height:39px;
+    background:rgba(255,191,0,1);
+    border-radius:16px;
+    text-align: center;
+    line-height: 39px;
+    margin-top: 18px;
+}
+.rmwork{
+    margin-left: 31px;
+    width: 253px;
+    right: 19px;
+    position: absolute;
+    top: 0;
+}
+.listItemTitle{
+    width:104px;
+    height:26px;
+    font-size:26px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    color:rgba(29,33,40,1);
+    line-height:36px;
+}
+
+.imgList{
+    width: 100%;
+    height: 173px;
+    margin-top: 32px;
+}
+.imgList li{
+    width: 256px;
+    height: 100%;
+    margin-top: 185px;
+}
+.imgList li:nth-child(1){
+    margin-top: 0;
+}
+.imgList li img{
+    width: 100%;
+    height: 100%;
+}
+.moduletwotext1{
+    width:98px;
+    height:16px;
+    font-size:16px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    color:rgb(104, 116, 139);
+    line-height:16px;
+    margin-top: 18px;
+}
+.moduletwotext2{
+    margin-top: 17px;
+    width: 100%;
+    height: 19px;
+}
+.moduletwotext2 span{
+    display: inline-block;
+    width:42px;
+    height:19px;
+    background:#EBEFF2;
+    border-radius:9px;
+    text-align: center;
+    line-height: 19px;
+    font-size: 12px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(138,147,163,1);
+}
+.moduletwotext2 span:nth-child(2){
+    margin-left: 10px;
+}
+.moduletwotext3{
+    float: right;
+}
+.moduletwotext3 div{
+    display: inline-block;
+    font-size:12px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(159,165,173,1);
+}
+.moduletwotext3 .eyes{
+    display: inline-block;
+    width: 15px;
+    height: 11px;
+}
+.moduletwotext3 .eyes img{
+    width: 100%;
+    height: 100%;
+}
+.module3Line{
+    width:257px;
+    height:1px;
+    background-color: #EAEEF0;
+    margin-top: 17px;
+}
+.moduletwotext4{
+    width: 100%;
+    height: 33px;
+    margin-top: 14px;
+    overflow: hidden;
+}
+.total{
+    width:32px;
+    height:32px;
+    float: left;
+}
+.total img{
+    width: 100%;
+    height: 100%;
+}
+.nametea{
+    float: left;
+    margin-left: 12px;
+}
+.nameteaT1{
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(80,81,83,1);
+}
+.nameteaT2{
+    font-size:12px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(159,165,173,1);
+}
+.moreLook{
+    width:729px;
+    height:49px;
+    background-color: #F1F2F3;
+    text-align: center;
+    line-height: 49px;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(122,126,133,1);
+    margin-top: 106px;
+    margin-bottom: 249px;
+}
