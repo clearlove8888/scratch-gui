@@ -49,6 +49,7 @@ const blob = this.dataURLtoBlob(img.src);
 #主js文件打包的时候排除，从oss中引入。只能在webpack中手动排除，在html手动引入
 
 #设置 NODE_ENV === 'production'  windows set NODE_ENV=production
-"build": "set NODE_ENV=production && npm run clean && webpack --progress --colors --bail"
+
+"build": "set NODE_ENV=production&& npm run clean && webpack --progress --colors --bail" 这个位置需要注意production后面不能有空格
 
 #阿里云gizp压缩问题 cdn加速
