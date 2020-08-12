@@ -48,5 +48,5 @@ const blob = this.dataURLtoBlob(img.src);
 ```
 #主js文件打包的时候排除，从oss中引入。只能在webpack中手动排除，在html手动引入
 
-#设置 NODE_ENV === 'production'  windows set NODE_ENV === 'production'
+#设置 NODE_ENV === 'production'  windows set NODE_ENV = 'production'
 #阿里云gizp压缩问题
