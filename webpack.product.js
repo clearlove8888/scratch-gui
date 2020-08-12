@@ -15,7 +15,8 @@ var postcssImport = require('postcss-import');
 const STATIC_PATH = process.env.STATIC_PATH || '/static';
 
 const base = {
-    mode: 'production',
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+    devtool: process.env.NODE_ENV === 'production' ?'':'cheap-module-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'build'),
         host: '0.0.0.0',
@@ -144,7 +145,7 @@ module.exports = [
                 'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"',
                 // portal项目的地址
                 PORTAL_SERVER: JSON.stringify(""),
-                OSS_SERVER: JSON.stringify("https://scratch-file.oss-cn-shenzhen.aliyuncs.com/")
+                OSS_SERVER: JSON.stringify("http://oss.xylexue.com/")
             }),
             new HtmlWebpackPlugin({
                 chunks: ['gui'],
@@ -201,7 +202,7 @@ module.exports = [
         ])
     })
 ].concat(
-    (
+    process.env.NODE_ENV === 'production' || process.env.BUILD_MODE === 'dist' ? (
         // export as library
         defaultsDeep({}, base, {
             target: 'web',
@@ -245,5 +246,5 @@ module.exports = [
                     flatten: true
                 }])
             ])
-        }))
+        })) : []
 );
