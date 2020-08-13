@@ -3,11 +3,6 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import activity from './project/css/activity.css';
 import style from './project/css/public.css';
-import topLogo from './project/images/topLogo.png';
-import topSearch from './project/images/topSearch.png';
-import bigSearch from './project/images/bigSearch.png';
-import eyes from './project/images/eyes.png';
-import styles from "./player.css";
 import GUI from '../containers/gui.jsx';
 import Box from '../components/box/box.jsx';
 import PropTypes from "prop-types";
@@ -31,11 +26,11 @@ class Detail extends React.Component {
 
         const {isPlayerOnly, onSeeInside, projectId} = this.props;
         return (
-            <div>
+            <div style={{backgroundColor: '#EFF3F5'}}>
                 <div className={style.header}>
                     <div className={style.headerCon}>
                         <div className={style.topLogo}>
-                            <img src={topLogo} alt=""/>
+                            <img src={images.topLogo} alt=""/>
                         </div>
                         <ul className={style.tabList}>
                             <li><a href="/index.html">首页</a></li>
@@ -46,7 +41,7 @@ class Detail extends React.Component {
                         </ul>
                         <div className={style.iconList}>
                 <span className={style.searchIcon}>
-                    <img src={topSearch} alt=""/>
+                    <img src={images.topSearch} alt=""/>
                 </span>
                             <span className={style.loginText}>
                     登录
@@ -64,34 +59,34 @@ class Detail extends React.Component {
                     <div className={activity.mainTop}>
                         <input type="text" className={activity.searchCon} placeholder="搜索项目、活动、素材"/>
                         <div className={activity.searchBtn}>
-                            <img src={bigSearch} alt=""/>
+                            <img src={images.bigSearch} alt=""/>
                         </div>
                     </div>
-                    <div className={activity.mainBot}>
+                    <div className={activity.mainBot} style={{margin: '30px auto',borderRadius: '6px',padding: '30px'}}>
                         <div className={activity.activityWork}>
                             <div className={activity.activityWorkL}>
                                 <div className={activity.acttitle}>
                                     五一劳动节主题作品征集
                                 </div>
                                 <div className={activity.actIcon}>
-                        <span className={classNames(activity.eyes, activity.iconF)}>
-                            <img src={eyes} alt=""/>
-                            <span>238</span>
-                        </span>
-                                    <span className={classNames(activity.zan, activity.iconF)}>
-                            <img src={images.zan} alt=""/>
-                            <span>238</span>
-                        </span>
-                                    <span className={classNames(activity.shouc, activity.iconF)}>
-                            <img src={images.shouc} alt=""/>
-                            <span>238</span>
-                        </span>
-                                    <span className={classNames(activity.time, activity.iconF)}>
-                            <img src={images.time} alt=""/>
-                            <span>2020-04-26 至 2020-05-15</span>
-                        </span>
+                                    <span className={classNames(activity.eyes, activity.iconF)}>
+                                        <img src={images.eyes} alt=""/>
+                                        <span>238</span>
+                                    </span>
+                                                <span className={classNames(activity.zan, activity.iconF)}>
+                                        <img src={images.zan} alt=""/>
+                                        <span>238</span>
+                                    </span>
+                                                <span className={classNames(activity.shouc, activity.iconF)}>
+                                        <img src={images.shouc} alt=""/>
+                                        <span>238</span>
+                                    </span>
+                                                <span className={classNames(activity.time, activity.iconF)}>
+                                        <img src={images.time} alt=""/>
+                                        <span>2020-04-26 至 2020-05-15</span>
+                                    </span>
                                 </div>
-                                <div id={'root'} >
+                                <div id={'root'}>
                                     <Box>
                                         <GUI
                                             canEditTitle
@@ -146,7 +141,7 @@ class Detail extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={activity.subWork}>
+                        {/*<div className={activity.subWork}>
                             <div className={activity.subWorkCon}>
                                 <div className={activity.subText}>
                                     <div>
@@ -321,7 +316,7 @@ class Detail extends React.Component {
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div>*/}
                     </div>
                 </div>
 
@@ -432,5 +427,5 @@ const WrappedPlayer = compose(
 const appTarget = document.createElement('div');
 document.body.appendChild(appTarget);
 
-ReactDOM.render(<WrappedPlayer isPlayerOnly />, appTarget);
+ReactDOM.render(<WrappedPlayer isPlayerOnly/>, appTarget);
 

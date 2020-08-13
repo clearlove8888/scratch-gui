@@ -5,8 +5,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
+<% if (htmlWebpackPlugin.options.sentryConfig) { %>
+<!-- Sentry error logging to help with finding bugs -->
+<script src="http://oss.xylexue.com/lib.min.js" crossorigin="anonymous"></script>
+<!-- /Sentry -->
+<% } %>
 </body>
 </html>

@@ -16,7 +16,6 @@ const STATIC_PATH = process.env.STATIC_PATH || '/static';
 
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-    devtool: process.env.NODE_ENV === 'production' ?'':'cheap-module-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'build'),
         host: '0.0.0.0',
@@ -108,7 +107,7 @@ module.exports = [
             'blocksonly': './src/playground/blocks-only.jsx',
             'compatibilitytesting': './src/playground/compatibility-testing.jsx',
             'player': './src/playground/player.jsx',
-            'project': './src/playground/project.jsx'
+            'detail':'./src/playground/detail.jsx',
         },
         output: {
             path: path.resolve(__dirname, 'build'),
@@ -148,34 +147,36 @@ module.exports = [
                 OSS_SERVER: JSON.stringify("http://oss.xylexue.com/")
             }),
             new HtmlWebpackPlugin({
-                chunks: ['gui'],
+                chunks: [ 'gui'],
                 template: 'src/playground/product.ejs',
                 title: 'Scratch 3.0 GUI',
                 sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
             }),
             new HtmlWebpackPlugin({
-                chunks: ['blocksonly'],
+                chunks: [ 'blocksonly'],
                 template: 'src/playground/product.ejs',
                 filename: 'blocks-only.html',
                 title: 'Scratch 3.0 GUI: Blocks Only Example'
             }),
             new HtmlWebpackPlugin({
-                chunks: ['compatibilitytesting'],
+                chunks: [ 'compatibilitytesting'],
                 template: 'src/playground/product.ejs',
                 filename: 'compatibility-testing.html',
                 title: 'Scratch 3.0 GUI: Compatibility Testing'
             }),
             new HtmlWebpackPlugin({
-                chunks: ['player'],
+                chunks: [ 'player'],
                 template: 'src/playground/product.ejs',
                 filename: 'player.html',
                 title: 'Scratch 3.0 GUI: Player Example'
             }),
             new HtmlWebpackPlugin({
-                chunks: ['project'],
-                template: 'src/playground/product.ejs',
-                filename: 'project.html',
-                title: 'Scratch 3.0 GUI: Player Example'
+                chunks: [ 'detail'],
+                template: 'src/playground/detail.html',
+                filename: 'detail.html',
+                title: 'projectDetail',
+                //判断是否需要从外部引入 lib.min.js
+                sentryConfig: true
             }),
             new CopyWebpackPlugin([{
                 from: 'static',
@@ -195,9 +196,9 @@ module.exports = [
                 context: 'node_modules/scratch-vm/dist/web'
             }]),
             new webpack.ProvidePlugin({
-                $: "jquery",
-                jQuery: "jquery",
-                "window.jQuery": "jquery"
+                $:"jquery",
+                jQuery:"jquery",
+                "window.jQuery":"jquery"
             })
         ])
     })
