@@ -119,6 +119,7 @@ const GUIComponent = props => {
         tipsLibraryVisible,
         vm,
         loginState,
+        isDetail,
         ...componentProps
     } = omit(props, 'dispatch');
     if (children) {

@@ -52,4 +52,8 @@ const blob = this.dataURLtoBlob(img.src);
 
 "build": "set NODE_ENV=production&& npm run clean && webpack --progress --colors --bail" 这个位置需要注意production后面不能有空格
 
-#阿里云gizp压缩问题 cdn加速
+###3.1  阿里云gizp压缩问题 cdn加速
+
+    阿里云oss不能直接压缩文件，所以单独把lib.min.js上传到一个oss存储空间，然后使用cdn给这个空间加速
+
+###3.2 保存后刷新列表，scratch静态文件加速
