@@ -7,13 +7,16 @@ import SubmitLoginButton from './submit-login-button.jsx';
 import {connect} from "react-redux";
 import {closeLoginModal, openLoginModal} from "../../reducers/modals";
 import {login} from "../../reducers/user-state";
+import Storage from '../../playground/project/utils/Storage';
 
-const userLogin = (loginName, password, onCancel, userSateLogin) => {
+const storage = new Storage();
+
+const userLogin = (loginName, password, onCancel, userSateLogin, loadProjectList) => {
     //用户登录
     const formdata = new FormData();
     formdata.append("loginName", loginName.value);
     formdata.append("password", password.value)
-    fetch(PORTAL_SERVER+"/education/user/login", {
+    fetch(PORTAL_SERVER + "/education/user/login", {
         method: "POST",
         mode: 'cors',
         headers: {
@@ -24,7 +27,7 @@ const userLogin = (loginName, password, onCancel, userSateLogin) => {
         const token = new FormData();
         token.append("token", json.data);
         //解析用户数据
-        fetch(PORTAL_SERVER+"/education/user/analysis", {
+        fetch(PORTAL_SERVER + "/education/user/analysis", {
             method: "POST",
             mode: 'cors',
             headers: {
@@ -34,11 +37,12 @@ const userLogin = (loginName, password, onCancel, userSateLogin) => {
         }).then(res => res.json()).then((json) => {
             //设置为登陆状态
             userSateLogin(json.data);
-            //保存用户信息到sessionStorage
-            console.log(json);
-            sessionStorage.setItem("user", JSON.stringify(json.data));
+            //保存用户信息到sessionStorage  //设置过期时间为一天
+            storage.set("user", json.data, 24 * 60 * 60 * 1000);
             //关闭弹窗
             onCancel();
+            //加载 projectList
+            loadProjectList && loadProjectList();
         });
     });
 }
@@ -70,7 +74,7 @@ class LoginModal extends React.Component {
                     /><br/>
                     <SubmitLoginButton className={styles.btnSubmit} onClick={() => {
                         userLogin(this.loginName, this.password,
-                            this.props.onCancel, this.props.userSateLogin)
+                            this.props.onCancel, this.props.userSateLogin, this.props.loadProjectList)
                     }}
                     />
                 </Box>

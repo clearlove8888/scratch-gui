@@ -29,10 +29,11 @@ const StageComponent = props => {
         onDeactivateColorPicker,
         onDoubleClick,
         onQuestionAnswered,
+        isDetail,
         ...boxProps
     } = props;
 
-   const stageDimensions = !isFullScreen? {
+   const stageDimensions = isDetail && !isFullScreen? {
        width: '620px',
        height: '465px'
    }:getStageDimensions(stageSize, isFullScreen);
@@ -149,9 +150,11 @@ StageComponent.propTypes = {
     onQuestionAnswered: PropTypes.func,
     question: PropTypes.string,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
-    useEditorDragStyle: PropTypes.bool
+    useEditorDragStyle: PropTypes.bool,
+    isDetail: PropTypes.bool,
 };
 StageComponent.defaultProps = {
-    dragRef: () => {}
+    dragRef: () => {},
+    isDetail:false
 };
 export default StageComponent;

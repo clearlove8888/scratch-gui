@@ -18,7 +18,8 @@ const StageWrapperComponent = function (props) {
         isRendererSupported,
         loading,
         stageSize,
-        vm
+        vm,
+        isDetail
     } = props;
 
     return (
@@ -41,6 +42,7 @@ const StageWrapperComponent = function (props) {
                         <Stage
                             stageSize={stageSize}
                             vm={vm}
+                            isDetail={isDetail}
                         /> :
                         null
                 }

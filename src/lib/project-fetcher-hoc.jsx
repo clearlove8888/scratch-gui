@@ -68,7 +68,7 @@ const ProjectFetcherHOC = function (WrappedComponent) {
             }
         }
         fetchProject (projectId, loadingState) {
-            storage.setProjectHost(OSS_SERVER+'project/'+this.props.userId+"/project")
+            storage.setProjectHost(OSS_SERVER+"project/file")
             return storage
                 .load(storage.AssetType.Project, projectId, storage.DataFormat.JSON)
                 .then(projectAsset => {

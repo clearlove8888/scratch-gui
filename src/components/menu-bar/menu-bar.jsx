@@ -30,8 +30,8 @@ import DeletionRestorer from '../../containers/deletion-restorer.jsx';
 import TurboMode from '../../containers/turbo-mode.jsx';
 import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 
-import buttonCss from'./login-button.css';
-import {openLoginModal, openTipsLibrary} from '../../reducers/modals';
+import buttonCss from './login-button.css';
+import {openLoginModal, openTipsLibrary, closeProjectListModal, openProjectListModal} from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
 import {
     autoUpdateProject,
@@ -40,7 +40,7 @@ import {
     manualUpdateProject,
     requestNewProject,
     remixProject,
-    saveProjectAsCopy
+    saveProjectAsCopy, setProjectId
 } from '../../reducers/project-state';
 import {
     openAccountMenu,
@@ -77,6 +77,9 @@ import scratchLogo from './scratch-logo.svg';
 import sharedMessages from '../../lib/shared-messages';
 import LoginButton from "./login-button.jsx";
 import {base64ToBlob} from "../../lib/fileUtils";
+import ProjectModal from "../project-modal/project-modal.jsx";
+import ProjectModalHoc from "../../lib/project-modal-hoc.jsx";
+import LoginModal from "../login-modal/login-modal.jsx";
 
 const ariaMessages = defineMessages({
     language: {
@@ -92,12 +95,12 @@ const ariaMessages = defineMessages({
 });
 
 const MenuBarItemTooltip = ({
-    children,
-    className,
-    enable,
-    id,
-    place = 'bottom'
-}) => {
+                                children,
+                                className,
+                                enable,
+                                id,
+                                place = 'bottom'
+                            }) => {
     if (enable) {
         return (
             <React.Fragment>
@@ -159,7 +162,7 @@ AboutButton.propTypes = {
 };
 
 class MenuBar extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         bindAll(this, [
             'handleClickNew',
@@ -176,13 +179,16 @@ class MenuBar extends React.Component {
             'saveProject'
         ]);
     }
-    componentDidMount () {
+
+    componentDidMount() {
         document.addEventListener('keydown', this.handleKeyPress);
     }
-    componentWillUnmount () {
+
+    componentWillUnmount() {
         document.removeEventListener('keydown', this.handleKeyPress);
     }
-    handleClickNew () {
+
+    handleClickNew() {
         // if the project is dirty, and user owns the project, we will autosave.
         // but if they are not logged in and can't save, user should consider
         // downloading or logging in first.
@@ -197,19 +203,23 @@ class MenuBar extends React.Component {
         }
         this.props.onRequestCloseFile();
     }
-    handleClickRemix () {
+
+    handleClickRemix() {
         this.props.onClickRemix();
         this.props.onRequestCloseFile();
     }
-    handleClickSave () {
+
+    handleClickSave() {
         this.props.onClickSave();
         this.props.onRequestCloseFile();
     }
-    handleClickSaveAsCopy () {
+
+    handleClickSaveAsCopy() {
         this.props.onClickSaveAsCopy();
         this.props.onRequestCloseFile();
     }
-    handleClickSeeCommunity (waitForUpdate) {
+
+    handleClickSeeCommunity(waitForUpdate) {
         if (this.props.shouldSaveBeforeTransition()) {
             this.props.autoUpdateProject(); // save before transitioning to project page
             waitForUpdate(true); // queue the transition to project page
@@ -217,7 +227,8 @@ class MenuBar extends React.Component {
             waitForUpdate(false); // immediately transition to project page
         }
     }
-    handleClickShare (waitForUpdate) {
+
+    handleClickShare(waitForUpdate) {
         if (!this.props.isShared) {
             if (this.props.canShare) { // save before transitioning to project page
                 this.props.onShare();
@@ -230,20 +241,23 @@ class MenuBar extends React.Component {
             }
         }
     }
-    handleRestoreOption (restoreFun) {
+
+    handleRestoreOption(restoreFun) {
         return () => {
             restoreFun();
             this.props.onRequestCloseEdit();
         };
     }
-    handleKeyPress (event) {
+
+    handleKeyPress(event) {
         const modifier = bowser.mac ? event.metaKey : event.ctrlKey;
         if (modifier && event.key === 's') {
             this.props.onClickSave();
             event.preventDefault();
         }
     }
-    getSaveToComputerHandler (downloadProjectCallback) {
+
+    getSaveToComputerHandler(downloadProjectCallback) {
         return () => {
             this.props.onRequestCloseFile();
             downloadProjectCallback();
@@ -253,53 +267,56 @@ class MenuBar extends React.Component {
             }
         };
     }
-    handleLanguageMouseUp (e) {
+
+    handleLanguageMouseUp(e) {
         if (!this.props.languageMenuOpen) {
             this.props.onClickLanguage(e);
         }
     }
-    restoreOptionMessage (deletedItem) {
+
+    restoreOptionMessage(deletedItem) {
         switch (deletedItem) {
-        case 'Sprite':
-            return (<FormattedMessage
-                defaultMessage="Restore Sprite"
-                description="Menu bar item for restoring the last deleted sprite."
-                id="gui.menuBar.restoreSprite"
-            />);
-        case 'Sound':
-            return (<FormattedMessage
-                defaultMessage="Restore Sound"
-                description="Menu bar item for restoring the last deleted sound."
-                id="gui.menuBar.restoreSound"
-            />);
-        case 'Costume':
-            return (<FormattedMessage
-                defaultMessage="Restore Costume"
-                description="Menu bar item for restoring the last deleted costume."
-                id="gui.menuBar.restoreCostume"
-            />);
-        default: {
-            return (<FormattedMessage
-                defaultMessage="Restore"
-                description="Menu bar item for restoring the last deleted item in its disabled state." /* eslint-disable-line max-len */
-                id="gui.menuBar.restore"
-            />);
-        }
+            case 'Sprite':
+                return (<FormattedMessage
+                    defaultMessage="Restore Sprite"
+                    description="Menu bar item for restoring the last deleted sprite."
+                    id="gui.menuBar.restoreSprite"
+                />);
+            case 'Sound':
+                return (<FormattedMessage
+                    defaultMessage="Restore Sound"
+                    description="Menu bar item for restoring the last deleted sound."
+                    id="gui.menuBar.restoreSound"
+                />);
+            case 'Costume':
+                return (<FormattedMessage
+                    defaultMessage="Restore Costume"
+                    description="Menu bar item for restoring the last deleted costume."
+                    id="gui.menuBar.restoreCostume"
+                />);
+            default: {
+                return (<FormattedMessage
+                    defaultMessage="Restore"
+                    description="Menu bar item for restoring the last deleted item in its disabled state." /* eslint-disable-line max-len */
+                    id="gui.menuBar.restore"
+                />);
+            }
         }
     }
-    saveProject(){
+
+    saveProject() {
         this.props.vm.saveProjectSb3().then(content => {
-            const formData= new FormData();
-            formData.append("target",content);
+            const formData = new FormData();
+            formData.append("target", content);
             //构建出项目的封面图片
             this.props.vm.renderer.draw();
             const img = new Image();
             img.src = this.props.vm.renderer.canvas.toDataURL('image/png', 0.7);
-            formData.append("image",base64ToBlob(img.src));
+            formData.append("image", base64ToBlob(img.src));
             //设置一个默认的projectId
-            formData.append("projectId",this.props.projectId);
-            formData.append("user",JSON.stringify(this.props.userState.userData));
-            formData.append("projectName",this.props.projectTitle);
+            formData.append("projectId", this.props.projectId);
+            formData.append("user", JSON.stringify(this.props.userState.userData));
+            formData.append("projectName", this.props.projectTitle);
             fetch(PORTAL_SERVER + '/education/project/upload', {
                 method: "POST",
                 mode: 'cors',
@@ -307,12 +324,18 @@ class MenuBar extends React.Component {
                     ContentType: "multipart/form-data; charset=UTF-8"
                 },
                 body: formData
-            }).then(response => response.json()).then(json=>{
-                console.log(json);
+            }).then(response => response.json()).then(json => {
+                if (json && json.data && json.data.projectId) {
+                    this.props.setProjectId(json.data.projectId);
+                    alert("保存成功！");
+                } else {
+                    alert('保存失败！');
+                }
             })
         });
     }
-    render () {
+
+    render() {
         const saveNowMessage = (
             <FormattedMessage
                 defaultMessage="Save now"
@@ -355,7 +378,7 @@ class MenuBar extends React.Component {
             </Button>
         );
         // Show the About button only if we have a handler for it (like in the desktop app)
-        const aboutButton = this.props.onClickAbout ? <AboutButton onClick={this.props.onClickAbout} /> : null;
+        const aboutButton = this.props.onClickAbout ? <AboutButton onClick={this.props.onClickAbout}/> : null;
         return (
             <Box
                 className={classNames(
@@ -389,7 +412,7 @@ class MenuBar extends React.Component {
                                     src={dropdownCaret}
                                 />
                             </div>
-                            <LanguageSelector label={this.props.intl.formatMessage(ariaMessages.language)} />
+                            <LanguageSelector label={this.props.intl.formatMessage(ariaMessages.language)}/>
                         </div>)}
                         {(this.props.canManageFiles) && (
                             <div
@@ -518,9 +541,9 @@ class MenuBar extends React.Component {
                             </MenuBarMenu>
                         </div>
                     </div>
-                    <Divider className={classNames(styles.divider)} />
+                    <Divider className={classNames(styles.divider)}/>
                     <div
-                        aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
+                        // aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                         className={classNames(styles.menuBarItem, styles.hoverable)}
                         onClick={this.props.onOpenTipLibrary}
                     >
@@ -530,7 +553,7 @@ class MenuBar extends React.Component {
                         />
                         <FormattedMessage {...ariaMessages.tutorials} />
                     </div>
-                    <Divider className={classNames(styles.divider)} />
+                    <Divider className={classNames(styles.divider)}/>
                     {this.props.canEditTitle ? (
                         <div className={classNames(styles.menuBarItem, styles.growable)}>
                             <MenuBarItemTooltip
@@ -604,8 +627,28 @@ class MenuBar extends React.Component {
                         ) : [])}
                     </div>
                     {/*left menu*/}
-                    <Button className={buttonCss.saveButton} children={'保存'} />
+                    <Button className={buttonCss.saveButton} children={'保存'} onClick={this.saveProject}/>
                     <Button className={buttonCss.shareButton} children={'分享到社区'}/>
+                    <a href="javascript:;" style={{textDecoration: "none"}} onClick={this.props.openProjectListModal}>
+                        <div
+                            className={classNames(
+                                styles.menuBarItem,
+                                styles.hoverable,
+                                styles.mystuffButton
+                            )}
+                            style={{
+                                height: '35px',
+                                border: '1px solid #e5f0ff',
+                                borderRadius: '5px'
+                            }}
+                        >
+                            <img
+                                className={styles.mystuffIcon}
+                                src={mystuffIcon}
+                            />
+                            <span>我的仓库</span>
+                        </div>
+                    </a>
                 </div>
 
                 {/* show the proper UI in the account menu, given whether the user is
@@ -613,28 +656,13 @@ class MenuBar extends React.Component {
                 <div className={styles.accountInfoGroup}>
                     <div className={styles.menuBarItem}>
                         {this.props.canSave && (
-                            <SaveStatus />
+                            <SaveStatus/>
                         )}
                     </div>
                     {this.props.userState.loginState ? (
                         this.props.username ? (
                             // ************ user is logged in ************
                             <React.Fragment>
-                                <a href="/mystuff/" style={{textDecoration:"none"}}>
-                                    <div
-                                        className={classNames(
-                                            styles.menuBarItem,
-                                            styles.hoverable,
-                                            styles.mystuffButton
-                                        )}
-                                    >
-                                        <img
-                                            className={styles.mystuffIcon}
-                                            src={mystuffIcon}
-                                        />
-                                        <span>我的仓库</span>
-                                    </div>
-                                </a>
                                 <AccountNav
                                     className={classNames(
                                         styles.menuBarItem,
@@ -693,38 +721,38 @@ class MenuBar extends React.Component {
                     ) : (
                         // ******** no login session is available, so don't show login stuff
                         this.props.loginState ? <React.Fragment>
-                            {this.props.showComingSoon ? (
-                                <React.Fragment>
-                                    <MenuBarItemTooltip id="mystuff">
-                                        <div
-                                            className={classNames(
-                                                styles.menuBarItem,
-                                                styles.hoverable,
-                                                styles.mystuffButton
-                                            )}
+                                {this.props.showComingSoon ? (
+                                    <React.Fragment>
+                                        <MenuBarItemTooltip id="mystuff">
+                                            <div
+                                                className={classNames(
+                                                    styles.menuBarItem,
+                                                    styles.hoverable,
+                                                    styles.mystuffButton
+                                                )}
+                                            >
+                                                <img
+                                                    className={styles.mystuffIcon}
+                                                    src={mystuffIcon}
+                                                />
+                                            </div>
+                                        </MenuBarItemTooltip>
+                                        <MenuBarItemTooltip
+                                            id="account-nav"
+                                            place={this.props.isRtl ? 'right' : 'left'}
                                         >
-                                            <img
-                                                className={styles.mystuffIcon}
-                                                src={mystuffIcon}
-                                            />
-                                        </div>
-                                    </MenuBarItemTooltip>
-                                    <MenuBarItemTooltip
-                                        id="account-nav"
-                                        place={this.props.isRtl ? 'right' : 'left'}
-                                    >
-                                        <div
-                                            className={classNames(
-                                                styles.menuBarItem,
-                                                styles.hoverable,
-                                                styles.accountNavMenu
-                                            )}
-                                        >
-                                            <img
-                                                className={styles.profileIcon}
-                                                src={profileIcon}
-                                            />
-                                            <span>
+                                            <div
+                                                className={classNames(
+                                                    styles.menuBarItem,
+                                                    styles.hoverable,
+                                                    styles.accountNavMenu
+                                                )}
+                                            >
+                                                <img
+                                                    className={styles.profileIcon}
+                                                    src={profileIcon}
+                                                />
+                                                <span>
                                                 {'scratch-cat'}
                                             </span>
                                                 <img
@@ -736,22 +764,34 @@ class MenuBar extends React.Component {
                                     </React.Fragment>
                                 ) : []}
                             </React.Fragment> :
-                                this.props.userState.loginState?
-                                    (
-                                        <React.Fragment>
-                                            <Button children={'保存作品'} className={styles.saveBtn} onClick={this.saveProject}/>
-                                            <span style={{'width':'150px'}}>{'欢迎您，'+this.props.userState.userData.loginName+'小朋友'}</span>
-                                        </React.Fragment>
-                                    ):
-                                    (
-                                        <React.Fragment>
-                                            <LoginButton onClick={this.props.onclick} login={this.props.login}/>
-                                        </React.Fragment>
-                                    )
+                            this.props.userState.loginState ?
+                                (
+                                    <React.Fragment>
+                                        <Button children={'保存作品'} className={styles.saveBtn}
+                                                onClick={this.saveProject}/>
+                                        <span
+                                            style={{'width': '150px'}}>{'欢迎您，' + this.props.userState.userData.loginName + '小朋友'}</span>
+                                    </React.Fragment>
+                                ) :
+                                (
+                                    <React.Fragment>
+                                        <LoginButton onClick={this.props.onclick}/>
+                                    </React.Fragment>
+                                )
                     )}
                 </div>
 
                 {aboutButton}
+                {
+                    this.props.projectListModal &&
+                    <ProjectModal
+                        projectList={this.props.projectList} title={'选择要加载的项目'}
+                        closeProjectListModal={this.props.closeProjectListModal}
+                        selectId={this.props.selectId}
+                        selectProjectName={this.props.selectProjectName}
+                    />
+                }
+                {this.props.showLoginModal && <LoginModal title={'登录'} loadProjectList={this.props.loadProjectList}/>}
             </Box>
         );
     }
@@ -815,12 +855,14 @@ MenuBar.propTypes = {
     showComingSoon: PropTypes.bool,
     userOwnsProject: PropTypes.bool,
     username: PropTypes.string,
-    vm: PropTypes.instanceOf(VM).isRequired
+    vm: PropTypes.instanceOf(VM).isRequired,
+    showLoginModal: PropTypes.bool,
 };
 
 MenuBar.defaultProps = {
     logo: scratchLogo,
-    onShare: () => {}
+    onShare: () => {
+    }
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -843,7 +885,9 @@ const mapStateToProps = (state, ownProps) => {
             (ownProps.authorUsername === user.username),
         vm: state.scratchGui.vm,
         userState: state.scratchGui.userState,
-        projectId: state.scratchGui.projectState.projectId
+        projectId: state.scratchGui.projectState.projectId,
+        projectListModal: state.scratchGui.modals.projectListModal,
+        showLoginModal: state.scratchGui.modals.loginModal
     };
 };
 
@@ -865,13 +909,15 @@ const mapDispatchToProps = dispatch => ({
     onClickSave: () => dispatch(manualUpdateProject()),
     onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
     onSeeCommunity: () => dispatch(setPlayer(true)),
-    onclick: ()=>dispatch(openLoginModal()),
-    login: (data)=>dispatch(login(data)),
+    onclick: () => dispatch(openLoginModal()),
+    login: (data) => dispatch(login(data)),
+    setProjectId: projectId => dispatch(setProjectId(projectId)),
 });
 
 export default compose(
     injectIntl,
     MenuBarHOC,
+    ProjectModalHoc,
     connect(
         mapStateToProps,
         mapDispatchToProps

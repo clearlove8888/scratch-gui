@@ -119,7 +119,6 @@ const GUIComponent = props => {
         tipsLibraryVisible,
         vm,
         loginState,
-        showLoginModal,
         ...componentProps
     } = omit(props, 'dispatch');
     if (children) {
@@ -150,6 +149,7 @@ const GUIComponent = props => {
                 loading={loading}
                 stageSize={STAGE_SIZE_MODES.large}
                 vm={vm}
+                isDetail={isDetail}
             >
                 {alertsVisible ? (
                     <Alerts className={styles.alertsContainer} />
@@ -161,7 +161,6 @@ const GUIComponent = props => {
                 dir={isRtl ? 'rtl' : 'ltr'}
                 {...componentProps}
             >
-                {showLoginModal&&<LoginModal title={'登录'}/>}
                 {telemetryModalVisible ? (
                     <TelemetryModal
                         onCancel={onTelemetryModalCancel}
@@ -425,7 +424,6 @@ GUIComponent.propTypes = {
     telemetryModalVisible: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired,
-    showLoginModal: PropTypes.bool,
 };
 GUIComponent.defaultProps = {
     backpackHost: null,

@@ -93,6 +93,7 @@ class Detail extends React.Component {
                                             enableCommunity
                                             isPlayerOnly={isPlayerOnly}
                                             projectId={projectId}
+                                            isDetail={true}
                                         />
                                     </Box>
                                 </div>

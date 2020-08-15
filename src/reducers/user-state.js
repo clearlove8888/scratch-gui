@@ -1,10 +1,18 @@
+import Storage from '../playground/project/utils/Storage';
+const storage = new Storage();
+
 const USER_LOGIN= 'scratch-gui/user/login';
 
+const isLoginState = ()=>{
+    const user = storage.get("user");
+    return user && user.id && user.loginName;
+}
+
 const getInitialState = ()=>{
-    if (sessionStorage.getItem("user")){
+    if (isLoginState()){
         return {
             error: null,
-            userData: JSON.parse(sessionStorage.getItem("user")),
+            userData: storage.get("user"),
             loginState: true
         }
     }else {

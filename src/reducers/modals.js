@@ -13,6 +13,8 @@ const MODAL_SOUND_RECORDER = 'soundRecorder';
 const MODAL_CONNECTION = 'connectionModal';
 const MODAL_TIPS_LIBRARY = 'tipsLibrary';
 const MODAL_LOGIN = 'loginModal';
+const MODAL_PROJECT_LIST ='projectListModal';
+
 const initialState = {
     [MODAL_BACKDROP_LIBRARY]: false,
     [MODAL_CAMERA_CAPTURE]: false,
@@ -26,6 +28,7 @@ const initialState = {
     [MODAL_CONNECTION]: false,
     [MODAL_TIPS_LIBRARY]: false,
     [MODAL_LOGIN]: false,
+    [MODAL_PROJECT_LIST]: false
 };
 
 const reducer = function (state, action) {
@@ -127,6 +130,12 @@ const closeConnectionModal = function () {
 const closeLoginModal = function () {
     return closeModal(MODAL_LOGIN);
 };
+const closeProjectListModal = function () {
+    return closeModal(MODAL_PROJECT_LIST);
+};
+const openProjectListModal = function () {
+    return openModal(MODAL_PROJECT_LIST);
+};
 export {
     reducer as default,
     initialState as modalsInitialState,
@@ -153,5 +162,7 @@ export {
     closeTelemetryModal,
     closeTipsLibrary,
     closeConnectionModal,
-    closeLoginModal
+    closeLoginModal,
+    closeProjectListModal,
+    openProjectListModal
 };
