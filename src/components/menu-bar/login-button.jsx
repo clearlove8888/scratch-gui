@@ -4,7 +4,7 @@ import Button from '../button/button.jsx';
 import styles from './login-button.css';
 
 const LoginButton = ({ className,onClick }) => (
-    <Button className={styles.loginButton} children={'login'} onClick={onClick}/>
+    <Button className={styles.loginButton} children={'请先登录，否则无法保存作品!'} onClick={onClick}/>
 );
 
 LoginButton.propTypes = {

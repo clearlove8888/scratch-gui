@@ -5,23 +5,23 @@ import activity from './project/css/activity.css';
 import style from './project/css/public.css';
 import GUI from '../containers/gui.jsx';
 import Box from '../components/box/box.jsx';
-import PropTypes from "prop-types";
-import {setPlayer} from "..";
-import {connect} from "react-redux";
-import {compose} from "redux";
+import PropTypes from 'prop-types';
+import {setPlayer} from '..';
+import {connect} from 'react-redux';
+import {compose} from 'redux';
 import HashParserHOC from '../lib/hash-parser-hoc.jsx';
 import AppStateHOC from '../lib/app-state-hoc.jsx';
 
-const requireContext = require.context("./project/images", true, /^\.\/.*\.png$/);
+const requireContext = require.context('./project/images', true, /^\.\/.*\.png$/);
 const images = {};
 requireContext.keys().map(key => {
-    const name = key.replace("./", "").replace(".png", "");
+    const name = key.replace('./', '').replace('.png', '');
     images[name] = requireContext(key);
 });
 
 class Detail extends React.Component {
 
-    render() {
+    render () {
         console.log(images);
 
         const {isPlayerOnly, onSeeInside, projectId} = this.props;
@@ -30,7 +30,10 @@ class Detail extends React.Component {
                 <div className={style.header}>
                     <div className={style.headerCon}>
                         <div className={style.topLogo}>
-                            <img src={images.topLogo} alt=""/>
+                            <img
+                                src={images.topLogo}
+                                alt=""
+                            />
                         </div>
                         <ul className={style.tabList}>
                             <li><a href="/index.html">首页</a></li>
@@ -40,16 +43,19 @@ class Detail extends React.Component {
                             <li><a href="/scratch/">学习区</a></li>
                         </ul>
                         <div className={style.iconList}>
-                <span className={style.searchIcon}>
-                    <img src={images.topSearch} alt=""/>
-                </span>
+                            <span className={style.searchIcon}>
+                                <img
+                                    src={images.topSearch}
+                                    alt=""
+                                />
+                            </span>
                             <span className={style.loginText}>
-                    登录
-                </span>
+                                登录
+                            </span>
                             <span className={style.fgline}>/</span>
                             <span className={style.regText}>
-                    注册
-                </span>
+                                注册
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -57,12 +63,22 @@ class Detail extends React.Component {
                 <div className={activity.activityMain}>
 
                     <div className={activity.mainTop}>
-                        <input type="text" className={activity.searchCon} placeholder="搜索项目、活动、素材"/>
+                        <input
+                            type="text"
+                            className={activity.searchCon}
+                            placeholder="搜索项目、活动、素材"
+                        />
                         <div className={activity.searchBtn}>
-                            <img src={images.bigSearch} alt=""/>
+                            <img
+                                src={images.bigSearch}
+                                alt=""
+                            />
                         </div>
                     </div>
-                    <div className={activity.mainBot} style={{margin: '30px auto',borderRadius: '6px',padding: '30px'}}>
+                    <div
+                        className={activity.mainBot}
+                        style={{margin: '30px auto', borderRadius: '6px', padding: '30px'}}
+                    >
                         <div className={activity.activityWork}>
                             <div className={activity.activityWorkL}>
                                 <div className={activity.acttitle}>
@@ -70,19 +86,31 @@ class Detail extends React.Component {
                                 </div>
                                 <div className={activity.actIcon}>
                                     <span className={classNames(activity.eyes, activity.iconF)}>
-                                        <img src={images.eyes} alt=""/>
+                                        <img
+                                            src={images.eyes}
+                                            alt=""
+                                        />
                                         <span>238</span>
                                     </span>
-                                                <span className={classNames(activity.zan, activity.iconF)}>
-                                        <img src={images.zan} alt=""/>
+                                    <span className={classNames(activity.zan, activity.iconF)}>
+                                        <img
+                                            src={images.zan}
+                                            alt=""
+                                        />
                                         <span>238</span>
                                     </span>
-                                                <span className={classNames(activity.shouc, activity.iconF)}>
-                                        <img src={images.shouc} alt=""/>
+                                    <span className={classNames(activity.shouc, activity.iconF)}>
+                                        <img
+                                            src={images.shouc}
+                                            alt=""
+                                        />
                                         <span>238</span>
                                     </span>
-                                                <span className={classNames(activity.time, activity.iconF)}>
-                                        <img src={images.time} alt=""/>
+                                    <span className={classNames(activity.time, activity.iconF)}>
+                                        <img
+                                            src={images.time}
+                                            alt=""
+                                        />
                                         <span>2020-04-26 至 2020-05-15</span>
                                     </span>
                                 </div>
@@ -93,7 +121,7 @@ class Detail extends React.Component {
                                             enableCommunity
                                             isPlayerOnly={isPlayerOnly}
                                             projectId={projectId}
-                                            isDetail={true}
+                                            isDetail
                                         />
                                     </Box>
                                 </div>
@@ -101,7 +129,11 @@ class Detail extends React.Component {
                             <div className={activity.activityWorkR}>
                                 <div className={activity.userInfo}>
                                     <div className={activity.userCon}>
-                                        <img src={images.toux} alt="" style={{float: ' left'}}/>
+                                        <img
+                                            src={images.toux}
+                                            alt=""
+                                            style={{float: ' left'}}
+                                        />
                                         <div className={activity.userDel}>
                                             <span className={activity.username}>一只大鱼</span>
                                             <div className={activity.zhiwei}>
@@ -110,12 +142,12 @@ class Detail extends React.Component {
                                         </div>
                                     </div>
                                     <div className={activity.focusBtn}>
-                            <span className={activity.plusIcon}>
-                                +
-                            </span>
+                                        <span className={activity.plusIcon}>
+                                            +
+                                        </span>
                                         <span className={activity.focusT}>
-                                关注
-                            </span>
+                                            关注
+                                        </span>
                                     </div>
                                 </div>
                                 <div className={activity.userIntroduce}>
@@ -130,7 +162,10 @@ class Detail extends React.Component {
                                             出工作室。
                                         </p>
                                     </div>
-                                    <div className={activity.workIntroduce} style={{marginTop: '23px'}}>
+                                    <div
+                                        className={activity.workIntroduce}
+                                        style={{marginTop: '23px'}}
+                                    >
                                         <span className={activity.zpTitle}>操作说明:</span>
                                         <p className={activity.textContent}>
                                             这个游戏还未完成，目前只有训练场模式。还未支持切换模式。验证码我
@@ -142,7 +177,7 @@ class Detail extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        {/*<div className={activity.subWork}>
+                        {/* <div className={activity.subWork}>
                             <div className={activity.subWorkCon}>
                                 <div className={activity.subText}>
                                     <div>
@@ -326,7 +361,10 @@ class Detail extends React.Component {
                     <div className={style.footerCon}>
                         <div className={style.left}>
                             <div className={style.footerLogo}>
-                                <img src={images.botLogo} alt=""/>
+                                <img
+                                    src={images.botLogo}
+                                    alt=""
+                                />
                             </div>
                             <div className={style.scratch}>
                                 scratchCN中国爱好者社区
@@ -347,15 +385,24 @@ class Detail extends React.Component {
                                 商务合作：1395004803@qq.com
                             </li>
                             <li className={style.lxfs}>
-                        <span>
-                            <img src={images.qq} alt=""/>
-                        </span>
                                 <span>
-                            <img src={images.phone} alt=""/>
-                        </span>
+                                    <img
+                                        src={images.qq}
+                                        alt=""
+                                    />
+                                </span>
                                 <span>
-                            <img src={images.weixin} alt=""/>
-                        </span>
+                                    <img
+                                        src={images.phone}
+                                        alt=""
+                                    />
+                                </span>
+                                <span>
+                                    <img
+                                        src={images.weixin}
+                                        alt=""
+                                    />
+                                </span>
                             </li>
                         </ul>
                         <div className={style.right}>
@@ -385,7 +432,7 @@ class Detail extends React.Component {
                             </ul>
                         </div>
 
-                        {/*<div className={style.footerBot}>
+                        {/* <div className={style.footerBot}>
                             Copyright © 2020 scratchCN版权所有 京ICP备150215619号 京公网安备110105022365号
                         </div>*/}
                     </div>
@@ -393,7 +440,7 @@ class Detail extends React.Component {
 
                 </div>
             </div>
-        )
+        );
     }
 }
 
@@ -405,7 +452,7 @@ Detail.propTypes = {
 
 const mapStateToProps = state => ({
     isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
-    vm: state.scratchGui.vm,
+    vm: state.scratchGui.vm
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -428,5 +475,4 @@ const WrappedPlayer = compose(
 const appTarget = document.createElement('div');
 document.body.appendChild(appTarget);
 
-ReactDOM.render(<WrappedPlayer isPlayerOnly/>, appTarget);
-
+ReactDOM.render(<WrappedPlayer isPlayerOnly />, appTarget);
