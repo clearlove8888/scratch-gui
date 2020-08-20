@@ -14,6 +14,7 @@ const MODAL_CONNECTION = 'connectionModal';
 const MODAL_TIPS_LIBRARY = 'tipsLibrary';
 const MODAL_LOGIN = 'loginModal';
 const MODAL_PROJECT_LIST ='projectListModal';
+const MODAL_PRODUCTION ='modalProduction';
 
 const initialState = {
     [MODAL_BACKDROP_LIBRARY]: false,
@@ -28,7 +29,8 @@ const initialState = {
     [MODAL_CONNECTION]: false,
     [MODAL_TIPS_LIBRARY]: false,
     [MODAL_LOGIN]: false,
-    [MODAL_PROJECT_LIST]: false
+    [MODAL_PROJECT_LIST]: false,
+    [MODAL_PRODUCTION]: false,
 };
 
 const reducer = function (state, action) {
@@ -136,6 +138,12 @@ const closeProjectListModal = function () {
 const openProjectListModal = function () {
     return openModal(MODAL_PROJECT_LIST);
 };
+const closeProductionModal = function () {
+    return closeModal(MODAL_PRODUCTION);
+};
+const openProductionModal = function () {
+    return openModal(MODAL_PRODUCTION);
+};
 export {
     reducer as default,
     initialState as modalsInitialState,
@@ -164,5 +172,7 @@ export {
     closeConnectionModal,
     closeLoginModal,
     closeProjectListModal,
-    openProjectListModal
+    openProjectListModal,
+    closeProductionModal,
+    openProductionModal
 };

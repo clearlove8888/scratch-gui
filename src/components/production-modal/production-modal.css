@@ -1,0 +1,87 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+.modal-content {
+    width: 500px;
+    background-color: white;
+}
+.header-class-name{
+    background-color: hsla(300, 48%, 50%, 1);
+}
+.production-box{
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.production-box p{
+    font-size: 15px;
+    color: #444;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 5px;
+    margin-top: 0
+}
+
+.production-box textarea{
+    border: 1px solid #ddd;
+    width: 100%;
+    border-radius: 4px;
+    resize: none;
+    font-size: 14px;
+    outline: none;
+}
+
+.production-box input[type='text'] {
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    width: 100%;
+    padding-left: 10px;
+    outline: none;
+}
+.production-box span{
+    position: relative;
+    display: inline-block;
+    padding: 4px 10px;
+    border: 1px solid #4C97FF;
+    font-size: 14px;
+    color: #4C97FF;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.production-checked{
+    padding-left: 15px;
+    color: #fff !important;
+    background: #4C97FF;
+}
+.project-action{
+    margin: 1.5rem 0;
+    font-weight: bolder;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+}
+.production-action{
+    margin: 1rem 0;
+    font-weight: bolder;
+    text-align: right;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.production-btn{
+    outline: none;
+    margin-right: 20px;
+    border: 1px solid hsla(215, 100%, 65%, 1);
+    border-radius: 0.25rem;
+    padding: 0.5rem 1.5rem;
+    font-weight: bold;
+    font-size: .875rem;
+    cursor: pointer;
+}
